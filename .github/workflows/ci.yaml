@@ -24,4 +24,4 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Push md2pdf
-        run: DOCKER_TAG=latest make push
+        run: docker push scclouds/md2pdf:latest
