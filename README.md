@@ -1,2 +1,2 @@
 # md2pdf
-Python script to convert MD to PDF
+Simple python script to convert MD to PDF
