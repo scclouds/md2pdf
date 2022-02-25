@@ -26,5 +26,6 @@ RUN pip install -r requirements.txt
 COPY md2pdf_converter.py ./
 COPY docker-entrypoint.sh ./
 COPY conf.yaml ./
+COPY toc.xsl ./
 
 ENTRYPOINT ["docker-entrypoint.sh"]

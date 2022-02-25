@@ -46,6 +46,9 @@ conf_file = get_reserved_file(CONF_FILE)
 if not conf_file:
     conf_file = os.path.join("./", CONF_FILE)
 
+if not toc:
+    toc = os.path.join("./", TOC_FILE)
+
 full_md = ""
 for file_name in files:
     print(f"Reading file \"{file_name}\"")
