@@ -13,7 +13,7 @@ HEADER_FILE = "header.html"
 FOOTER_FILE = "footer.html"
 CONF_FILE = "conf.yaml"
 
-allowed_extensions = (".md", ".html", ".xsl", ".yaml")
+allowed_extensions = (".md", ".html", ".xsl", ".yaml", ".css")
 
 files = sorted([os.path.join(content_dir, file)
                 for file in os.listdir(content_dir)
@@ -30,6 +30,8 @@ def get_reserved_file(reserved_file):
         file = os.path.join(default_dir, reserved_file)
         if file not in default_files:
             return None
+
+        default_files.remove(file)
     else:
         files.remove(file)
 
@@ -51,6 +53,11 @@ if not toc:
 
 full_md = ""
 for file_name in files:
+    print(f"Reading file \"{file_name}\"")
+    full_md += open(file_name, "r").read()
+    full_md += "\n"
+
+for file_name in default_files:
     print(f"Reading file \"{file_name}\"")
     full_md += open(file_name, "r").read()
     full_md += "\n"
@@ -80,10 +87,15 @@ if 'xsl-style-sheet' not in toc_dict and toc:
     toc_dict['xsl-style-sheet'] = toc
 
 print("\nConverting content to HTML\n")
-html = markdown.markdown(full_md)
+html = markdown.markdown(full_md, extensions=['extra'])
 
+print("\nAdding prettify script to HTML")
+html = "<script src=\"https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js\"></script>" + html
 
-print("Converting HTML to PDF.\n")
+print("\nAdding class \"prettyprint\" to all \"pre\" tags")
+html = html.replace("<pre>", "<pre class=\"prettyprint\">")
+
+print("\nConverting HTML to PDF.\n")
 
 output_name = sys.argv[1]
 output_file = os.path.join(content_dir, output_name)
