@@ -23,6 +23,9 @@ WORKDIR /usr/bin/
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY md2pdf_converter.py ./
 COPY docker-entrypoint.sh ./
 COPY conf.yaml ./
