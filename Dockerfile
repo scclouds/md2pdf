@@ -5,11 +5,15 @@ RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkh
 RUN tar xvf wkhtmltox*.tar.xz
 RUN mv wkhtmltox/bin/wkhtmlto* /usr/bin
 
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
+RUN echo "deb http://security.ubuntu.com/ubuntu bionic-security main" >> /etc/apt/sources.list
+
 RUN apt-get update -y
+RUN apt-cache policy libssl1.0-dev
 RUN apt-get install -y \
     openssl \
     build-essential \
-    libssl-dev \
+    libssl1.0-dev \
     libxrender-dev \
     git-core \
     libx11-dev \

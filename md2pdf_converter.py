@@ -80,10 +80,15 @@ if 'xsl-style-sheet' not in toc_dict and toc:
     toc_dict['xsl-style-sheet'] = toc
 
 print("\nConverting content to HTML\n")
-html = markdown.markdown(full_md)
+html = markdown.markdown(full_md, extensions=['extra'])
 
+print("\nAdding prettify script to HTML")
+html = "<script src=\"https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js\"></script>" + html
 
-print("Converting HTML to PDF.\n")
+print("\nAdding class \"prettyprint\" to all \"pre\" tags")
+html = html.replace("<pre>", "<pre class=\"prettyprint\">")
+
+print("\nConverting HTML to PDF.\n")
 
 output_name = sys.argv[1]
 output_file = os.path.join(content_dir, output_name)
