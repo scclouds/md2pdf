@@ -55,12 +55,12 @@ full_md = ""
 for file_name in files:
     print(f"Reading file \"{file_name}\"")
     full_md += open(file_name, "r").read()
-    full_md += "\n"
+    full_md += "\n\n"
 
 for file_name in default_files:
     print(f"Reading file \"{file_name}\"")
     full_md += open(file_name, "r").read()
-    full_md += "\n"
+    full_md += "\n\n"
 
 print(f"\nLoading configs from \"{conf_file}\"")
 conf = {}
@@ -86,7 +86,7 @@ if 'xsl-style-sheet' not in toc_dict and toc:
     print("\nAdding \"xsl-style-sheet\" to toc")
     toc_dict['xsl-style-sheet'] = toc
 
-print("\nConverting content to HTML\n")
+print("\nConverting content to HTML")
 html = markdown.markdown(full_md, extensions=['extra'])
 
 print("\nAdding prettify script to HTML")
@@ -109,3 +109,12 @@ else:
     pdfkit.from_string(html, output_file, options, verbose=True, cover_first=True, cover=cover, toc=toc_dict)
 
 print("HTML converted to PDF.")
+
+if len(sys.argv) > 2:
+    content_to_print = sys.argv[2].split(",")
+
+    if "md" in content_to_print:
+        print(f"\n\nPrinting full MD:\n\n {full_md}")
+
+    if "html" in content_to_print:
+        print(f"\n\nPrinting full HTML:\n\n {html}")
