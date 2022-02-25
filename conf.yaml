@@ -1,0 +1,11 @@
+options:
+  encoding: "UTF-8"
+  enable-internal-links: ''
+  page-size: 'Letter'
+  margin-top: '1.5in'
+  margin-right: '1.0in'
+  margin-bottom: '0.75in'
+  margin-left: '1.0in'
+toc:
+  toc-header-text: 'Table of contents'
+  enable-toc-back-links: ''
